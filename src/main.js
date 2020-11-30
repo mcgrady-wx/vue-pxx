@@ -10,7 +10,7 @@ import LyTab from 'ly-tab'
 Vue.use(LyTab)
 
 //映入mint-ui的轮播
-import { Swipe, SwipeItem ,Cell,Actionsheet,DatetimePicker,Header,Button   } from 'mint-ui';
+import { Swipe, SwipeItem ,Cell,Actionsheet,DatetimePicker,Header,Button ,Checklist  } from 'mint-ui';
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Cell.name, Cell);
@@ -18,6 +18,7 @@ Vue.component(Actionsheet.name, Actionsheet);
 Vue.component(DatetimePicker.name, DatetimePicker);
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
+Vue.component(Checklist.name, Checklist);
 
 Vue.config.productionTip = false
 

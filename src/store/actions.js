@@ -5,7 +5,12 @@ import {
     REC_SHOP_LIST,
     SEARCH_GOODS,
     USER_INFO,
-    RESET_USER_INFO
+    RESET_USER_INFO,
+    ADD_GOODS_COUNT,
+    SELECTED_SINGER_GOODS,
+    REDUCE_GOODS_COUNT,
+    SELECTED_ALL_GOODS,
+    DEL_SINGER_GOODS
 } from './mutation-types'
 
 import {
@@ -85,6 +90,27 @@ const actions={
           commit(RESET_USER_INFO);
         }
     },
+    //同步修改单个商品的选中和取消选中
+    selectedGoods({commit},id){
+        commit(SELECTED_SINGER_GOODS,id)
+    },
+    //同步增加商品
+    addGoods({commit},good){
+        commit(ADD_GOODS_COUNT,good)
+    },
+    //同步减少商品数量
+    reduceGoods({commit},good){
+        commit(REDUCE_GOODS_COUNT,good)
+    },
+    //同步修改是否全选
+    selectedAllGoods({commit},flag){
+        commit(SELECTED_ALL_GOODS,flag)
+    },
+    //同步删除单个商品
+    delGoods({commit},id){
+        commit(DEL_SINGER_GOODS,id)
+    },
+
 }
 
 export default actions
