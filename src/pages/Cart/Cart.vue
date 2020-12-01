@@ -1,6 +1,6 @@
 <template>
   <div class="chat">
-    <div v-if="userInfo.id">
+    <div v-if="userInfo.id" style="height:100%;width:100%;overflow: hidden;">
       <!--头部区域-->
       <div class="header">
         <a href="" class="icon_back"></a>
@@ -14,8 +14,8 @@
         </p>
       </div>
       <!--中间的列表-->
-      <main class="jd_shopCart_list">
-        <section>
+      <div class="jd_shopCart_list">
+        <section v-if="totalPrice>0">
           <div class="shopCart_list_con" v-for="(goods, index) in cartGoods" :key="index">
             <div class="list_con_left">
                 <input type="checkbox" :id="goods.goods_id" :checked="goods.is_pay===0?true:false" @click="buy(goods.goods_id)" ref="inpu"/>
@@ -43,7 +43,10 @@
             </div>
           </div>
         </section>
-      </main>
+        <div v-else>
+          <img src="./images/timg.jpg" alt="" srcset="" width="100%">
+        </div>
+      </div> 
       <!--底部通栏-->
       <div id="tab_bar">
         <div class="tab-bar-left">         
@@ -66,7 +69,7 @@
 <script>
   import {mapState,mapActions,mapGetters} from 'vuex';
   import SelectLogin from './../Login/SelectLogin'
-
+  import BScroll from '@better-scroll/core'
   export default {
     name: "Chat",
     data() {
@@ -99,9 +102,29 @@
             this.delGoods(id)
         }
     },
+    watch: {
+      cartGoods(){
+        if (this.carBscroll) {
+          this.carBscroll.refresh()
+        } else {
+          this.carBscroll = new BScroll('.jd_shopCart_list', {
+              scrollY: true,
+              click: true
+          });
+        }
+        
+      }
+    },
     mounted() {
       // 请求商品数据
       //this.$store.dispatch('reqCartsGoods');
+      setTimeout(() => {
+        this.carBscroll = new BScroll('.jd_shopCart_list', {
+              scrollY: true,
+              click: true
+          });
+      }, 500);
+      
     },
     components: {
       SelectLogin
@@ -115,6 +138,7 @@
     width 100%
     height 100%
     background-color #e0e0e0
+    overflow: hidden;
     .header
       width: 100%;
       height: 44px;
@@ -157,6 +181,9 @@
     .jd_shopCart_list
       margin-bottom 64px
       background-color #e0e0e0
+      overflow: hidden;
+      height 75%
+      width 100%
       section
         margin-top 15px
         border-top 1px solid #e0e0e0

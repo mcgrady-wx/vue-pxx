@@ -12,7 +12,14 @@ const getters={
        return state.cartGoods.every((element)=>{
             return element.is_pay===0
         })
-    }
+    },
+    totalNum(state){//购物车总数量
+        let num=0 //保存价格
+        state.cartGoods.forEach(element => {
+            num+=element.buy_count
+        });
+        return num
+    },
 
 }
 

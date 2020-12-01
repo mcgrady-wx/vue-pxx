@@ -48,7 +48,8 @@ const mutations={
      if (!flag) {//表示要添加的商品不在购物车中
           arr.push(good)
      }
-     state.cartGoods=arr 
+     state.cartGoods=arr
+     localStorage.setItem('cartGoods',JSON.stringify(arr))
    },
    [REDUCE_GOODS_COUNT](state,good){
      let arr=state.cartGoods
@@ -61,6 +62,7 @@ const mutations={
           } 
      });
      state.cartGoods=arr
+     localStorage.setItem('cartGoods',JSON.stringify(arr))
    },
    [SELECTED_SINGER_GOODS](state,id){
      let arr=state.cartGoods
@@ -93,6 +95,7 @@ const mutations={
          return element.goods_id !==id
      })
      state.cartGoods=arr
+     localStorage.setItem('cartGoods',JSON.stringify(arr))
    }
 }
 

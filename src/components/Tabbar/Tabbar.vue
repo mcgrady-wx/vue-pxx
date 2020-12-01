@@ -12,9 +12,12 @@
       <img :src="$route.path.includes('/search') ? tabBarImgArr[2].selected: tabBarImgArr[2].normal" alt="">
       <span :class="{on: $route.path.includes('/search')}">搜索</span>
     </div>
-    <div class="tab-item" @click="switchTo('/cart')">
+    <div class="tab-item" @click="switchTo('/cart')" id="badge">
       <img :src="$route.path.includes('/cart') ? tabBarImgArr[3].selected: tabBarImgArr[3].normal" alt="">
       <span :class="{on: $route.path.includes('/cart')}">购物车</span>
+      <div class="num" v-if="totalNum>0">
+        <span>{{totalNum}}</span>
+      </div>
     </div>
     <div class="tab-item" @click="switchTo('/me')">
       <img :src="$route.path.includes('/me') ? tabBarImgArr[4].selected: tabBarImgArr[4].normal" alt="">
@@ -24,6 +27,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
     data() {
         return {
@@ -35,6 +39,9 @@ export default {
                 {normal: require('./../../common/img/icon_mine.png'), selected: require('./../../common/img/icon_mine_selected.png')}
             ]
         }
+    },
+    computed: {
+      ...mapGetters(['totalNum'])
     },
     methods:{
         switchTo(path){
@@ -56,15 +63,28 @@ export default {
         background-color white
         box-shadow 0 -0.2rem 1rem #ccc
         .tab-item
-            flex 1
-            font-size 1.2rem
-            display flex
-            flex-direction column
-            justify-content center
-            align-items center
-            img
-                width 35%
-                margin-bottom 0.3rem
-            .on
-                color red
+          flex 1
+          font-size 1.2rem
+          display flex
+          flex-direction column
+          justify-content center
+          align-items center
+          position relative
+          img
+            width 35%
+            margin-bottom 0.3rem
+          .on
+            color red
+          .num
+            position absolute
+            width 20px
+            height 15px
+            background-color #e9232c
+            top 5px
+            left 45px
+            border-radius 40%
+            span
+              margin-left 5px
+              color #cecbcb
+
 </style>

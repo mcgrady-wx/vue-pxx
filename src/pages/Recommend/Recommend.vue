@@ -6,6 +6,7 @@
                 v-for="(item, index) in recshoplist"
                 :item=item
                 :key="index"
+                @clickCellBtn="buyOne"
             />
         </div>   
         <select-login v-else/>
@@ -23,7 +24,8 @@ export default {
     data() {
         return {
             page: 1,//请求页数
-            count: 10 //一次请求数量
+            count: 10, //一次请求数量
+            ballflag:false
         }
     },
     created() {
@@ -38,7 +40,7 @@ export default {
         ...mapState(['recshoplist','userInfo'])
     },
     methods:{
-        ...mapActions(['reqRecShopList']),
+        ...mapActions(['reqRecShopList','addGoods']),
         _initRecBscroll() {//初始化热门页面滚动
             this.RecBscroll = new BScroll('.recommend', {
                 scrollY: true,
@@ -65,6 +67,28 @@ export default {
                 }
             })
 
+        },
+        buyOne(item){//点击购买
+            //console.log(item)  addGoods
+            /*{
+                "goods_id": 101758846,
+                "goods_name": "【冰薇儿】高腰弹力大码胖mm牛仔裤女长裤春秋季松紧腰九分显瘦",
+                "thumb_url": "http://t00img.yangkeduo.com/goods/images/2018-08-07/8af1aade86ac71055c6de10f9c089ce9.jpeg",
+                "price": 3960,
+                "buy_count": 1,
+                "is_pay": 0
+            }*/
+            //获得需要的商品数据
+            let good={
+                "goods_id": item.goods_id,
+                "goods_name": item.goods_name,
+                "thumb_url": item.thumb_url,
+                "price": item.price,
+                "buy_count": 1,
+                "is_pay": 0
+            }
+            //添加到vuex的购物车数据中
+            this.addGoods(good)
         }
     },
     watch: {
