@@ -25,7 +25,7 @@
             <div class="shop-container">
                 <ul class="shop-list">
                     <li class="shop-list-item" v-for="(shop, index) in homeshoplist.goods_list" :key="index">
-                        <img :src="shop.image_url" alt="" width="100%">
+                        <img v-lazy="shop.image_url" alt="" width="100%">
                         <h4 class="list-item-title">{{shop.goods_name}}</h4>
                         <div class="list-item-bottom">
                             <div class="list-item-bottom-left">

@@ -15,7 +15,7 @@
     <div class="tab-item" @click="switchTo('/cart')" id="badge">
       <img :src="$route.path.includes('/cart') ? tabBarImgArr[3].selected: tabBarImgArr[3].normal" alt="">
       <span :class="{on: $route.path.includes('/cart')}">购物车</span>
-      <div class="num" v-if="totalNum>0">
+      <div class="num" v-if="totalNum>0 && userInfo.id">
         <span>{{totalNum}}</span>
       </div>
     </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters,mapState} from 'vuex'
 export default {
     data() {
         return {
@@ -41,7 +41,8 @@ export default {
         }
     },
     computed: {
-      ...mapGetters(['totalNum'])
+      ...mapGetters(['totalNum']),
+      ...mapState(['userInfo'])
     },
     methods:{
         switchTo(path){

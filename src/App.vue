@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive>
+      <transition name="slide" mode="out-in">
+        <router-view/>
+      </transition>
+    </keep-alive>
     <Tabbar v-if="$route.meta.isShow"></Tabbar>
   </div>
 </template>
@@ -28,4 +32,14 @@ export default {
   height : 100%;
   background : #F5F5F5;
 }
+.slide-enter-active,.slide-leave-active{
+  transition: all 0.2s;
+}
+.slide-enter{
+  transform: translate3d(100%, 0, 0);
+}
+.slide-leave-to{
+  transform: translate3d(-100%, 0, 0);
+}
+  
 </style>

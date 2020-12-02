@@ -3,7 +3,9 @@
     <div class="home">
         <!-- 可滑动导航 -->
         <ly-tab v-model="selectedId" :items="items" @change="handleChange(selectedId)"></ly-tab>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>  
     </div>
 </template>
 

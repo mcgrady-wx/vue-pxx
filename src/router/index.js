@@ -1,15 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../pages/Home/Home.vue'
-import Recommend from '../pages/Recommend/Recommend.vue'
-import Search from '../pages/Search/Search.vue'
-import Cart from '../pages/Cart/Cart.vue'
-import Me from '../pages/Me/Me.vue'
+//import Home from '../pages/Home/Home.vue'
+//import Recommend from '../pages/Recommend/Recommend.vue'
+//import Search from '../pages/Search/Search.vue'
+//import Cart from '../pages/Cart/Cart.vue'
+//import Me from '../pages/Me/Me.vue'
 import Hot from '../pages/Home/children/Hot.vue'
 import Others from '../pages/Home/children/Others.vue'
-import Login from '../pages/Login/Login.vue'
+//import Login from '../pages/Login/Login.vue'
 import MeSetting from '../pages/Me/MeSetting.vue'
 import MeDetail from '../pages/Me/MeDetail.vue'
+
+//路由懒加载
+const Home = () => import('../pages/Home/Home.vue')
+const Recommend = () => import('../pages/Recommend/Recommend.vue')
+const Search = () => import('../pages/Search/Search.vue')
+const Cart = () => import('../pages/Cart/Cart.vue')
+const Me = () => import('../pages/Me/Me.vue')
+const Login = () => import('../pages/Login/Login.vue')
 
 Vue.use(Router)
 

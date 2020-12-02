@@ -16,32 +16,34 @@
       <!--中间的列表-->
       <div class="jd_shopCart_list">
         <section v-if="totalPrice>0">
-          <div class="shopCart_list_con" v-for="(goods, index) in cartGoods" :key="index">
-            <div class="list_con_left">
-                <input type="checkbox" :id="goods.goods_id" :checked="goods.is_pay===0?true:false" @click="buy(goods.goods_id)" ref="inpu"/>
-                <label :for="goods.goods_id"></label>
-            </div>
-            <div class="list_con_right">
-              <div class="shop_img">
-                <img :src="goods.thumb_url" alt="">
+          <transition-group name="fade"> 
+            <div class="shopCart_list_con" v-for="goods in cartGoods" :key="goods.goods_id">
+              <div class="list_con_left">
+                  <input type="checkbox" :id="goods.goods_id" :checked="goods.is_pay===0?true:false" @click="buy(goods.goods_id)" ref="inpu"/>
+                  <label :for="goods.goods_id"></label>
               </div>
-              <div class="shop_con">
-                <a href="">{{goods.goods_name}}</a>
-                <p class="shop_price">&yen;{{goods.price / 100}}</p>
-                <div class="shop_deal">
-                  <div class="shop_deal_left">
-                    <span @click="reduce(goods)">-</span>
-                    <input type="tel" value="1" v-model="goods.buy_count">
-                    <span @click="add(goods)">+</span>
-                  </div>
-                  <div class="shop_deal_right" @click="delGood(goods.goods_id)">
-                    <span></span>
-                    <span></span>
+              <div class="list_con_right">
+                <div class="shop_img">
+                  <img :src="goods.thumb_url" alt="">
+                </div>
+                <div class="shop_con">
+                  <a href="">{{goods.goods_name}}</a>
+                  <p class="shop_price">&yen;{{goods.price / 100}}</p>
+                  <div class="shop_deal">
+                    <div class="shop_deal_left">
+                      <span @click="reduce(goods)">-</span>
+                      <input type="tel" value="1" v-model="goods.buy_count">
+                      <span @click="add(goods)">+</span>
+                    </div>
+                    <div class="shop_deal_right" @click="delGood(goods.goods_id)">
+                      <span></span>
+                      <span></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </transition-group>  
         </section>
         <div v-else>
           <img src="./images/timg.jpg" alt="" srcset="" width="100%">
@@ -188,6 +190,11 @@
         margin-top 15px
         border-top 1px solid #e0e0e0
         background-color #fff
+        .fade-enter-active,.fade-leave-active
+          transition all 0.3s
+        .fade-enter,.fade-leave-to
+          transform translate3d(100%, 0, 0)
+          opacity 0
         .shopCart_list_con
           padding: 10px 0
           border-bottom 1px solid #e0e0e0

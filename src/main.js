@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-
+import VueLazyload from 'vue-lazyload' //图片懒加载
 //引入第三方可滑动导航栏库
 import LyTab from 'ly-tab'
 Vue.use(LyTab)
@@ -19,6 +19,12 @@ Vue.component(DatetimePicker.name, DatetimePicker);
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 Vue.component(Checklist.name, Checklist);
+
+//配置图片懒加载
+import loading from './common/img/loading.jpg'
+Vue.use(VueLazyload, {
+  loading
+});
 
 Vue.config.productionTip = false
 

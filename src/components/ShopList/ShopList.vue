@@ -1,6 +1,6 @@
 <template>
     <a class="recommend-item">
-        <img :src="item.thumb_url" alt="" width="100%" v-if="item.thumb_url">
+        <img v-lazy="item.thumb_url" alt="" width="100%" v-if="item.thumb_url">
         <h4 class="item-title">{{item.short_name}}</h4>
         <div class="item-bottom">
             <span class="item-price">¥{{item.price / 100}}</span>
@@ -12,7 +12,9 @@
             @enter="enter"
             @after-enter="afterEnter"
         >
-            <div class="ball" v-show="ballflag" ref="ball"></div>
+            <div class="ball" v-show="ballflag" ref="ball">
+              <img :src="item.thumb_url" alt="" width="100%">
+            </div>
         </transition>
     </a>
 </template>
@@ -36,7 +38,10 @@ export default {
       },
       //小球动画
       beforeEnter(el){
+        //在图片上加上一个缩小的动画，就实现了过渡移动过程中慢慢变小的动画
          el.style.transform="translate(0,0)"//初始化小球位置
+         //console.log(el)
+         
       },
       enter(el,done){
         el.offsetWidth//随便设置一个才会有动画效果
@@ -47,10 +52,10 @@ export default {
         let badgePosition=document.getElementById("badge").getBoundingClientRect()
         //console.log(ballPosition,badgePosition)
         //计算小球移动的距离
-        let x=badgePosition.left-ballPosition.left+30
-        let y=badgePosition.top-ballPosition.top
+        let x=badgePosition.left-ballPosition.left-60
+        let y=badgePosition.top-ballPosition.top-60
 
-        el.style.transform=`translate(${x}px,${y}px)`//设置小球最终位置
+        el.style.transform=`translate(${x}px,${y}px)`//设置小球最终位置       
         el.style.transition="all 0.5s cubic-bezier(.17,.67,.83,.67)"//设置动画效果，使用贝塞尔曲线(cubic-bezier)设置小球的运动轨迹
 
         //最后调用done函数 done()===afterEnter(el)
@@ -104,12 +109,31 @@ export default {
         background-color transparent
         color red
     .ball
-      width 15px
-      height 15px
-      background red
+      width 100%
+      height 100%
       z-index: 1000
-      border-radius 50%
       position absolute
-      top 220px
-      left 140px
+      top 0
+      left 0
+      img
+        border-radius 50%
+        animation mymove 0.5s ease-in-out
+  @keyframes mymove {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(0.6);
+    }
+    75% {
+      transform: scale(0.4);
+    }
+    100% {
+      transform: scale(0.2);
+    }
+  }
+
 </style>
